@@ -15,7 +15,7 @@ CFLAGS = -g
 
 all: a.out
 
-a.out: lex.yy.c list.o
+a.out: lex.yy.c list.o stack.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 lex.yy.c: lex.l
@@ -24,5 +24,9 @@ lex.yy.c: lex.l
 list.o: list.c
 	$(CC) $(CFLAGS) -c $<
 
+stack.o: stack.c
+	$(CC) $(CFLAGS) -c $<
+
 clean:
 	@-rm -f *.out *.o *.exe
+	@-rm -f lex.yy.c

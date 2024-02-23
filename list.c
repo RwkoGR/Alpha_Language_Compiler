@@ -12,7 +12,7 @@ int add_node(alpha_token_t **list_head,  unsigned int numline, unsigned int numT
     ptr = strcpy(ptr, content);
     new_node->content = ptr;
     new_node->category = category;
-    if(!strcmp(category,"CONST INT") || !strcmp(category, "CONST REAL")){
+    if(!strcmp(category,"CONST_INT") || !strcmp(category, "CONST_REAL")){
         new_node->type = ptr;
     }else{
         new_node->type = type;
