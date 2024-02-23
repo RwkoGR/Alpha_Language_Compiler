@@ -1,0 +1,38 @@
+ID: G
+ COMMENT: //gg
+STRING: gaga
+ID: aaaa___333
+{
+  }
+[
+  ]
+IF
+FUNCTION
+STRING: if function
+/
+*
+   *
+/
+INTEGER: 10
+REAL: 10.033
+IF
+ ELSE
+1:	 #1	 "G"	 ID	 "this_is_an_id"	 <-char*
+2:	 #2	 ""	 COMMENT	 LINE_COMMENT	 <-enumerated
+3:	 #3	 "gaga"	 STRING	 "this_is_a_string"	 <-char*
+4:	 #4	 "aaaa___333"	 ID	 "this_is_an_id"	 <-char*
+5:	 #5	 "{"	 PUNCTUATION	 LEFT_BRACE	 <-enumerated
+5:	 #6	 "}"	 PUNCTUATION	 RIGHT_BRACE	 <-enumerated
+6:	 #7	 "["	 PUNCTUATION	 LEFT_BRACKET	 <-enumerated
+8:	 #8	 "]"	 PUNCTUATION	 RIGHT_BRACKET	 <-enumerated
+9:	 #9	 "if"	 KEYWORD	 IF	 <-enumerated
+10:	 #10	 "function"	 KEYWORD	 FUNCTION	 <-enumerated
+11:	 #11	 "if function"	 STRING	 "this_is_a_string"	 <-char*
+12:	 #12	 "/"	 OPERATOR	 /	 <-enumerated
+12:	 #13	 "*"	 OPERATOR	 *	 <-enumerated
+14:	 #14	 "*"	 OPERATOR	 *	 <-enumerated
+14:	 #15	 "/"	 OPERATOR	 /	 <-enumerated
+15:	 #16	 "10"	 CONST INT	 10	 <-integer
+16:	 #17	 "10.033"	 CONST REAL	 10.033	 <-real
+17:	 #18	 "if"	 KEYWORD	 IF	 <-enumerated
+17:	 #19	 "else"	 KEYWORD	 ELSE	 <-enumerated
