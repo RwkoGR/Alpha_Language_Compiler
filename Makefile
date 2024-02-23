@@ -3,9 +3,9 @@
 #
 # file: Makefile
 #
-# @Author:   Athanasios Ioannis Xanthopoulos
-# @Version:  03-04-2023
-# @email:    csd4702@csd.uoc.gr
+# @Author:   Athanasios Ioannis Xanthopoulos && Zafeiris Panagiwtis Kanakis
+# @Version:  23-02-2024
+# @email:    csd4702@csd.uoc.gr && csd4891@csd.uoc.gr
 #
 # Makefile
 #
