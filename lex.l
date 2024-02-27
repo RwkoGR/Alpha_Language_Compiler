@@ -71,39 +71,39 @@ undefined .
 {nl}
 {space}
 
-{if} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "IF", "<-enumerated");fprintf(yyout,"IF\n");}
-{else} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "ELSE", "<-enumerated");fprintf(yyout,"ELSE\n");}
-{while} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "WHILE", "<-enumerated");fprintf(yyout,"WHILE\n");}
-{for} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "FOR", "<-enumerated");fprintf(yyout,"FOR\n");}
-{function} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "FUNCTION", "<-enumerated");fprintf(yyout,"FUNCTION\n");}
-{return} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "RETURN", "<-enumerated");fprintf(yyout,"RETURN\n");}
-{break} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "BREAK", "<-enumerated");fprintf(yyout,"BREAK\n");}
-{continue} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "CONTINUE", "<-enumerated");fprintf(yyout,"CONTINUE\n");}
-{and} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "AND", "<-enumerated");fprintf(yyout,"AND\n");}
-{not} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "NOT", "<-enumerated");fprintf(yyout,"NOT\n");}
-{or} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "OR", "<-enumerated");fprintf(yyout,"OR\n");}
-{local} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "LOCAL", "<-enumerated");fprintf(yyout,"LOCAL\n");}
-{true} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "TRUE", "<-enumerated");fprintf(yyout,"TRUE\n");}
-{false} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "FALSE", "<-enumerated");fprintf(yyout,"FALSE\n");}
-{nil} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "NIL", "<-enumerated");fprintf(yyout,"NIL\n");}
+{if} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "IF", "<-enumerated");}
+{else} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "ELSE", "<-enumerated");}
+{while} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "WHILE", "<-enumerated");}
+{for} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "FOR", "<-enumerated");}
+{function} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "FUNCTION", "<-enumerated");}
+{return} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "RETURN", "<-enumerated");}
+{break} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "BREAK", "<-enumerated");}
+{continue} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "CONTINUE", "<-enumerated");}
+{and} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "AND", "<-enumerated");}
+{not} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "NOT", "<-enumerated");}
+{or} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "OR", "<-enumerated");}
+{local} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "LOCAL", "<-enumerated");}
+{true} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "TRUE", "<-enumerated");}
+{false} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "FALSE", "<-enumerated");}
+{nil} {add_node(&head_list, yylineno, tokens++, yytext, "KEYWORD", "NIL", "<-enumerated");}
 
-{equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "=", "<-enumerated");fprintf(yyout,"=\n");}
-{plus} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "+", "<-enumerated");fprintf(yyout,"+\n");}
-{minus} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "-", "<-enumerated");fprintf(yyout,"-\n");}
-{times} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "*", "<-enumerated");fprintf(yyout,"*\n");}
-{divide} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "/", "<-enumerated");fprintf(yyout,"/\n");}
-{mod} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "%", "<-enumerated");fprintf(yyout,"%\n");}
-{equals_equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "==", "<-enumerated");fprintf(yyout,"==\n");}
-{not_equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "!=", "<-enumerated");fprintf(yyout,"!=\n");}
-{plus_plus} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "++", "<-enumerated");fprintf(yyout,"++\n");}
-{minus_minus} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "--", "<-enumerated");fprintf(yyout,"--\n");}
-{greater_than} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", ">", "<-enumerated");fprintf(yyout,">\n");}
-{less_than} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "<", "<-enumerated");fprintf(yyout,"<\n");}
-{greater_than_equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", ">=", "<-enumerated");fprintf(yyout,">=\n");}
-{less_than_equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "<=", "<-enumerated");fprintf(yyout,"<=\n");}
+{equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "EQUALS", "<-enumerated");}
+{plus} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "PLUS", "<-enumerated");}
+{minus} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "MINUS", "<-enumerated");}
+{times} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "TIMES", "<-enumerated");}
+{divide} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "DIVIDE", "<-enumerated");}
+{mod} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "MOD", "<-enumerated");}
+{equals_equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "EQUALS_EQUALS", "<-enumerated");}
+{not_equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "NOT_EQUALS", "<-enumerated");}
+{plus_plus} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "PLUS_PLUS", "<-enumerated");}
+{minus_minus} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "MINUS_MINUS", "<-enumerated");}
+{greater_than} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "GREATER_THAN", "<-enumerated");}
+{less_than} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "LESS_THAN", "<-enumerated");}
+{greater_than_equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "GREATER_EQUAL_THAN", "<-enumerated");}
+{less_than_equals} {add_node(&head_list, yylineno, tokens++, yytext, "OPERATOR", "LESS_EQUAL_THAN", "<-enumerated");}
 
-{integer} {add_node(&head_list, yylineno, tokens++, yytext, "CONST_INT", yytext, "<-integer");fprintf(yyout,"INTEGER: %s\n", yytext);}
-{real} {add_node(&head_list, yylineno, tokens++, yytext, "CONST_REAL", yytext, "<-real");fprintf(yyout,"REAL: %s\n", yytext);}
+{integer} {add_node(&head_list, yylineno, tokens++, yytext, "CONST_INT", yytext, "<-integer");}
+{real} {add_node(&head_list, yylineno, tokens++, yytext, "CONST_REAL", yytext, "<-real");}
 
 {string} {
     int c;
@@ -116,7 +116,7 @@ undefined .
         if(c == '\"'){
             pop(&stack);
             
-            add_node(&head_list, yylineno, tokens++, text, "STRING", "\"this_is_a_string\"", "<-char*");fprintf(yyout, "STRING: %s\n", yytext);
+            add_node(&head_list, yylineno, tokens++, text, "STRING", "\"this_is_a_string\"", "<-char*");
             break;
         }
         else{
@@ -164,6 +164,11 @@ undefined .
                         c = '\0';
                         break;
                     default:
+                        text = realloc(text, previous_len + 1);
+                        text[previous_len - 1] = '\\';
+                        text[previous_len] = '\0';
+                        previous_len++;
+                        fprintf(yyout,"Warning! invalid escape character %c \n",c);
                         break;
                 }
             }
@@ -174,27 +179,27 @@ undefined .
         }
     }
     if(stack != NULL){
-        fprintf(yyout,"ERROR IN STRINGS! \n");
+        fprintf(yyout,"ERROR! Unclosed string in line %d.\n",yylineno);
         exit(0);
     }
 }
     
 
-{curly_bracket_open} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "LEFT_BRACE", "<-enumerated");fprintf(yyout,"{\n");}
-{curly_bracket_close} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "RIGHT_BRACE", "<-enumerated");fprintf(yyout,"}\n");}
-{square_bracket_open} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "LEFT_BRACKET", "<-enumerated");fprintf(yyout,"[\n");}
-{square_bracket_close} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "RIGHT_BRACKET", "<-enumerated");fprintf(yyout,"]\n");}
-{parenthesis_open} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "LEFT_PARENTHESES", "<-enumerated");fprintf(yyout,"(\n");}
-{parenthesis_close} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "RIGHT_PARENTHESES", "<-enumerated");fprintf(yyout,")\n");}
-{semicolon} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "SEMICOLON", "<-enumerated");fprintf(yyout,";\n");}
-{comma} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "COMMA", "<-enumerated");fprintf(yyout,",\n");}
-{colon} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "COLON", "<-enumerated");fprintf(yyout,":\n");}
-{colo_colon} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "DOUBLE_COLON", "<-enumerated");fprintf(yyout,"::\n");}
-{dot} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "DOT", "<-enumerated");fprintf(yyout,".\n");}
-{dot_dot} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "DOUBLE_DOT", "<-enumerated");fprintf(yyout,"..\n");}
+{curly_bracket_open} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "LEFT_BRACE", "<-enumerated");}
+{curly_bracket_close} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "RIGHT_BRACE", "<-enumerated");}
+{square_bracket_open} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "LEFT_BRACKET", "<-enumerated");}
+{square_bracket_close} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "RIGHT_BRACKET", "<-enumerated");}
+{parenthesis_open} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "LEFT_PARENTHESES", "<-enumerated");}
+{parenthesis_close} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "RIGHT_PARENTHESES", "<-enumerated");}
+{semicolon} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "SEMICOLON", "<-enumerated");}
+{comma} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "COMMA", "<-enumerated");}
+{colon} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "COLON", "<-enumerated");}
+{colo_colon} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "DOUBLE_COLON", "<-enumerated");}
+{dot} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "DOT", "<-enumerated");}
+{dot_dot} {add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "DOUBLE_DOT", "<-enumerated");}
 
-{id} {add_node(&head_list, yylineno, tokens++, yytext, "ID", "\"this_is_an_id\"", "<-char*"); fprintf(yyout,"ID: %s\n", yytext);}
-{comment} {add_node(&head_list, yylineno, tokens++, "", "COMMENT", "LINE_COMMENT", "<-enumerated");fprintf(yyout,"COMMENT: %s\n", yytext);}
+{id} {add_node(&head_list, yylineno, tokens++, yytext, "ID", "\"this_is_an_id\"", "<-char*");}
+{comment} {add_node(&head_list, yylineno, tokens++, "", "COMMENT", "LINE_COMMENT", "<-enumerated");}
 {block_comment} {
     int c;
     int initial_line = 0;
@@ -205,7 +210,6 @@ undefined .
     while ((c = input()) != 0) {
         if(c == '/'){
             if ((c = input()) == '*'){
-                fprintf(yyout,"open COMMENT: %d\n", yylineno);
                 push(&stack, "/*", yylineno);
             }
             else{
@@ -214,7 +218,6 @@ undefined .
         }
         else if(c == '*'){
             if ((c = input()) == '/'){
-                fprintf(yyout,"CLOSING COMMENT: %d\n", yylineno);
                 initial_line = pop(&stack);
                 sprintf(text, "%d-%d", initial_line,yylineno);
                 
@@ -231,7 +234,7 @@ undefined .
         }
     }
     if(stack != NULL){
-        fprintf(yyout,"ERROR IN COMMENTS! \n");
+        fprintf(yyout,"ERROR! Unclosed comment block in line %d.\n",yylineno);
         exit(0);
     }
 }
@@ -253,7 +256,7 @@ int main(int argc, char *argv[]){
     alpha_yylex(head_list);
     alpha_token_t *token = head_list;
     while(token != NULL){
-        fprintf(yyout,"%u:\t #%u\t \"%s\"\t %s\t %s\t %s\n", token->numline, token->numToken, token->content, token->category, token->type, token->additional_info);
+        fprintf(yyout,"%u:\t #%u \t\"%s\" \t %s \t %s \t %s\n", token->numline, token->numToken, token->content, token->category, token->type, token->additional_info);
         token = token->next;
     }
     return 0;
