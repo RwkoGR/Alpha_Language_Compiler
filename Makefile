@@ -12,20 +12,26 @@
 CC = gcc
 CFLAGS = -g
 
-all: alpha_lex.out
+all: calc
 
-alpha_lex.out: lex.yy.c list.o stack.o
+calc: scanner.c list.o stack.o parser.c symtable.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-lex.yy.c: lex.l
-	lex lex.l
+scanner.c: lex.l
+	flex --outfile=scanner.c lex.l
 
-list.o: list.c
+parser.c: yacc.y
+	bison --yac -d --output parser.c yacc.y -v
+
+symtable.o: symtable.c
 	$(CC) $(CFLAGS) -c $<
 
-stack.o: stack.c
+list.o: list.c symtable.h
+	$(CC) $(CFLAGS) -c $<
+
+stack.o: stack.c stack.h
 	$(CC) $(CFLAGS) -c $<
 
 clean:
 	@-rm -f *.out *.o *.exe
-	@-rm -f lex.yy.c
+	@-rm -f scanner.c parser.c parser.h lex.yy.c calc
