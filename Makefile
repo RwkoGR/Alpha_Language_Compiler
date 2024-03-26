@@ -14,7 +14,7 @@ CFLAGS = -g
 
 all: calc
 
-calc: scanner.c list.o stack.o parser.c symtable.o
+calc: scanner.c list.o stack.o parser.c symtable.o scope_list.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 scanner.c: lex.l
@@ -24,6 +24,9 @@ parser.c: yacc.y
 	bison --yac -d --output parser.c yacc.y -v
 
 symtable.o: symtable.c
+	$(CC) $(CFLAGS) -c $<
+
+scope_list.o: scope_list.c
 	$(CC) $(CFLAGS) -c $<
 
 list.o: list.c symtable.h

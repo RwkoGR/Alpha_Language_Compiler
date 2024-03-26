@@ -1,3 +1,6 @@
+#ifndef STACK_H
+#define STACK_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -16,3 +19,5 @@ typedef struct stack stack_t;
 void push(stack_t **stack, char* operator, int lineno);
 
 int pop(stack_t **stack);
+
+#endif

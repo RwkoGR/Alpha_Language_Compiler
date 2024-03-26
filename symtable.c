@@ -1,8 +1,10 @@
 #include "symtable.h"
+#include "scope_list.h"
 
 extern int cur_scope;
 extern int yylineno;
 extern int num_func;
+extern struct List **scope_arr;
 int functStartLine;
 char **lib_funcs; //12
 
@@ -160,7 +162,8 @@ SymbolTableEntry* SymTable_put(SymTable_T oSymTable, const char *pcKey, char *ty
         if(cur_scope == 0) symTableObj->type = FORMAL;
         else symTableObj->type = LOCAL;
         assert(symTableObj->value.varVal != NULL);
-     }
+    }
+    if(!add_node_scope_arr(scope_arr, symTableObj)) printf("Error adding node to scope array\n");
     new_node->pvValue = (void *)symTableObj;
     
     /*Check if bucket(list) has been initialized and if not, initilize it with new node as head*/

@@ -1,5 +1,5 @@
-#ifndef SYMTABLE
-#define SYMTABLE
+#ifndef SYMTABLE_H
+#define SYMTABLE_H
 
 #include <assert.h>
 #include <string.h>

@@ -1,3 +1,6 @@
+#ifndef LIST_H
+#define LIST_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -19,3 +22,5 @@ int add_node(alpha_token_t **list_head, unsigned int numline, unsigned int numTo
 // int search(alpha_token_t *list_head, void *data_struct);
 // int delete_node(list_t **list_head, void *data_struct);
 // void print_list(list_t *list_head);
+
+#endif

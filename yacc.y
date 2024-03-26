@@ -1,11 +1,13 @@
 %{
         #include <stdio.h>
         #include "symtable.h"
+        #include "scope_list.h"
 
         int alpha_yyerror(void* symTable_head,char *yaccProvideMessage);
         int alpha_yylex();
         int alpha_yyparse(void *yylval);
         struct SymTable *symTable_head = NULL;
+        struct List **scope_arr;
         int cur_scope;
         int num_func;
 
@@ -257,10 +259,12 @@ int main(int argc, char **argv) {
         if((yyout = fopen(argv[2], "w+"))){}
         else yyout = stderr;
     }
+    scope_arr = create_scope_arr();
     num_func = 0;
     cur_scope = 0;
     symTable_head = SymTable_new();
     alpha_yyparse(symTable_head);
     SymTable_print(symTable_head);
+    print_nodes_scope_arr(scope_arr);
     return 0;
 }
