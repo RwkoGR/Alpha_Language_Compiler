@@ -162,7 +162,7 @@ indexed: indexedelem {printf("(Y) indexedelem\n");}
 indexedelem: '{' EXPR ':' EXPR '}' {printf("(Y) { EXPR : EXPR }\n");}
 
 
-BLOCK:  '{' STMTlist '}' {printf("(Y) { STMTlist }\n");}
+BLOCK:  '{'{cur_scope++;} STMTlist {cur_scope--;}'}' {printf("(Y) { STMTlist }\n");}
 
         
 BEGIN_FUNC: {
@@ -194,14 +194,16 @@ FUNC_INIT: FUNCTION {
         }
 
 FUNC_ARG_LIST: '(' IDlist ')' {
-                /*$$->value.funcVal->arg_list = $2;*/ printf("(Y) ( IDlist )");
+                printf("(Y) ( IDlist )");
         }
         | '(' ID ')'{
+                cur_scope++;
                 $$ = SymTable_put(symTable_head, $2 ,"func var");
                 printf("(Y) ( ID )\n");
+                cur_scope--;
         }
                 
-        | '(' ')' {/*$$->value.funcVal->arg_list = NULL;*/ printf("(Y) ( )");}
+        | '(' ')' {printf("(Y) ( )");}
 
 FUNCDEF: FUNC_INIT FUNC_ARG_LIST BEGIN_FUNC BLOCK END_FUNC {printf("(Y) COMPLETE FUNC\n");}
 
@@ -214,17 +216,23 @@ const: NUMBER_INT  {printf("(Y) NUMBER_INT\n");}
         | FALSE {printf("(Y) FALSE\n");}
 
 IDlist: ID IDtail{
+                cur_scope++;
                 $$ = SymTable_put(symTable_head, $1 ,"func var");
                 printf("(Y) ID\n");
+                cur_scope--;
         }
 
 IDtail:   ',' ID IDtail {
+                cur_scope++;
                 $$ = SymTable_put(symTable_head, $2 ,"func var");
                 printf("(Y) , ID IDtail\n");
+                cur_scope--;
         }
         | ',' ID {
+                cur_scope++;
                 $$ = SymTable_put(symTable_head, $2 ,"func var");
                 printf("(Y) , ID IDtail\n");
+                cur_scope--;
         }
 
 IFSTMT: IF '(' EXPR ')' STMT ELSE STMT  {printf("(Y) IF ( EXPR ) STMT ELSE STMT\n");}

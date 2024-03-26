@@ -159,8 +159,7 @@ SymbolTableEntry* SymTable_put(SymTable_T oSymTable, const char *pcKey, char *ty
         obj->scope = cur_scope;
         obj->line = yylineno;
         symTableObj->value.varVal = obj;
-        if(cur_scope == 0) symTableObj->type = FORMAL;
-        else symTableObj->type = LOCAL;
+        symTableObj->type = FORMAL;
         assert(symTableObj->value.varVal != NULL);
     }
     if(!add_node_scope_arr(scope_arr, symTableObj)) printf("Error adding node to scope array\n");
