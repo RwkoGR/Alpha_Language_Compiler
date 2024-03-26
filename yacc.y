@@ -20,7 +20,6 @@
     int intValue;
     float floatValue;
     struct SymbolTableEntry *symTableEntry;
-}
 
 %name-prefix="alpha_yy"
 %parse-param {void *symTable_head}
@@ -160,6 +159,7 @@ indexed: indexedelem {printf("(Y) indexedelem\n");}
 
 indexedelem: '{' EXPR ':' EXPR '}' {printf("(Y) { EXPR : EXPR }\n");}
 
+
 BLOCK:  '{' STMTlist '}' {printf("(Y) { STMTlist }\n");}
 
         
@@ -174,6 +174,7 @@ END_FUNC:{
 
 FUNC_INIT: FUNCTION {
                 printf("(Y) FUNCTION \n");
+
                 char *str;
                 char str_num[50];
                 sprintf(str_num, "%d", num_func);
@@ -210,6 +211,7 @@ const: NUMBER_INT  {printf("(Y) NUMBER_INT\n");}
         | TRUE  {printf("(Y) TRUE\n");}
         | FALSE {printf("(Y) FALSE\n");}
 
+<<<<<<< HEAD
 IDlist: ID IDtail{
                 $$ = SymTable_put(symTable_head, $1 ,"func var");
                 printf("(Y) ID\n");
