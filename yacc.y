@@ -20,7 +20,7 @@
     int intValue;
     float floatValue;
     struct SymbolTableEntry *symTableEntry;
-
+}
 %name-prefix="alpha_yy"
 %parse-param {void *symTable_head}
 
@@ -211,7 +211,6 @@ const: NUMBER_INT  {printf("(Y) NUMBER_INT\n");}
         | TRUE  {printf("(Y) TRUE\n");}
         | FALSE {printf("(Y) FALSE\n");}
 
-<<<<<<< HEAD
 IDlist: ID IDtail{
                 $$ = SymTable_put(symTable_head, $1 ,"func var");
                 printf("(Y) ID\n");
