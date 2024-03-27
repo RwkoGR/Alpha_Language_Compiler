@@ -117,9 +117,17 @@ lvalue: ID {
         }
       | local ID {
                 printf("(Y) local ID\n");
-                $$ = SymTable_put(symTable_head, $2 ,"var");
+                // SymTable_contains(symTable_head, $2, "local_var");
+                $$ = SymTable_put(symTable_head, $2 ,"local_var");
         }
-      | COLON_COLON ID {printf("(Y) COLON_COLON ID\n");}
+      | COLON_COLON ID {
+        int temp = cur_scope;
+        cur_scope = 0;
+        if(SymTable_contains(symTable_head, $2, "var") == 0){
+                printf("\n\t(!) Error colon_colon::%s.\n\n",$2);
+        }
+        cur_scope = temp;
+        printf("(Y) COLON_COLON ID\n");}
       | member {printf("(Y) member\n");}
       ;
 
@@ -189,22 +197,22 @@ FUNC_INIT: FUNCTION {
                 $$ = SymTable_put(symTable_head, str,"func");
         }
         | FUNCTION ID {
-                printf("(Y) FUNCTION ID ");
+                printf("(Y) FUNCTION ID \n");
                 $$ = SymTable_put(symTable_head, $2 ,"func");
         }
 
 FUNC_ARG_LIST: '(' IDlist ')' {
-                printf("(Y) ( IDlist )");
+                printf("(Y) ( IDlist )\n");
         }
         | '(' ID ')'{
                 cur_scope++;
-                $$ = SymTable_put(symTable_head, $2 ,"func var");
+                $$ = SymTable_put(symTable_head, $2 ,"formal");
                 printf("(Y) ( ID )\n");
-                hide_scope(scope_arr, cur_scope);
+                // hide_scope(scope_arr, cur_scope);
                 cur_scope--;
         }
                 
-        | '(' ')' {printf("(Y) ( )");}
+        | '(' ')' {printf("(Y) ( )\n");}
 
 FUNCDEF: FUNC_INIT FUNC_ARG_LIST BEGIN_FUNC BLOCK END_FUNC {printf("(Y) COMPLETE FUNC\n");}
 
@@ -218,24 +226,24 @@ const: NUMBER_INT  {printf("(Y) NUMBER_INT\n");}
 
 IDlist: ID IDtail{
                 cur_scope++;
-                $$ = SymTable_put(symTable_head, $1 ,"func var");
+                $$ = SymTable_put(symTable_head, $1 ,"formal");
                 printf("(Y) ID\n");
-                hide_scope(scope_arr, cur_scope);
+                // hide_scope(scope_arr, cur_scope);
                 cur_scope--;
         }
 
 IDtail:   ',' ID IDtail {
                 cur_scope++;
-                $$ = SymTable_put(symTable_head, $2 ,"func var");
+                $$ = SymTable_put(symTable_head, $2 ,"formal");
                 printf("(Y) , ID IDtail\n");
-                hide_scope(scope_arr, cur_scope);
+                // hide_scope(scope_arr, cur_scope);
                 cur_scope--;
         }
         | ',' ID {
                 cur_scope++;
-                $$ = SymTable_put(symTable_head, $2 ,"func var");
+                $$ = SymTable_put(symTable_head, $2 ,"formal");
                 printf("(Y) , ID IDtail\n");
-                hide_scope(scope_arr, cur_scope);
+                // hide_scope(scope_arr, cur_scope);
                 cur_scope--;
         }
 
@@ -285,24 +293,24 @@ int main(int argc, char **argv) {
         TODO:
         Variables:
                 Local:
-                Idio scope, mia metabliti den mporei na exei to idio onoma me mia allh metabliti.
-                Idio scope, mia metabliti den mporei na exei to idio onoma me mia synarthsh.
-                Mia metablhth den mporei pote na exe idio onoma me ta libfuncs.
+                Idio scope, mia metabliti den mporei na exei to idio onoma me mia allh metabliti.                       (Y)
+                Idio scope, mia metabliti den mporei na exei to idio onoma me mia synarthsh.                            (Y)  
+                Mia metablhth den mporei pote na exe idio onoma me ta libfuncs.                                         (Y)
                 Global:
-                Otan exoyme ::var tote koitame sto scope 0,an bre8ei anaferomaste ekei alliws error.
-                To ::var den kanei put sto symtable.
+                Otan exoyme ::var tote koitame sto scope 0,an bre8ei anaferomaste ekei alliws error.                    (Y)
+                To ::var den kanei put sto symtable.                                                                    (Y)
                 Gia kapoio var 3ekiname apo scope mexri 0 kai an broume eite var eite func anaferomaste
-                ekei kai blepoume an exoume access alliws kanoume put sto symtable.
-                Gia kapoio var 3ekiname apo scope mexri 1 kai an mesolabei func kai broume idio var
+                ekei kai blepoume an exoume access alliws kanoume put sto symtable.                                     (Y)
+                Gia kapoio var 3ekiname apo scope mexri 1 kai an mesolabei func kai broume idio var                     
                 tote error. An den broume idio var, koitame to global kai an exei anaferomaste ekei
-                alliws kanoume put.
-                Oles oi sunarths apo scope mexri 0 einai orates.
-                Ola ta global var kai lib func einai orata.
+                alliws kanoume put.                                                                                     (Y)
+                Ola ta global var kai lib func einai orata.                                                             (Y)
         Functions:
-                Gia kapoia sunarthsh an exei var h func idio h exei onoma libfunc tote error. Allws put.
-                Gia kapoio Formal var an exei idio onoma me kapoio var h func sto idio scope h exei onoma
+                Gia kapoia sunarthsh an exei var h func idio h exei onoma libfunc tote error. Alliws put.               (Y)
+                Gia kapoio Formal var an exei idio onoma me kapoio var sto idio scope h exei onoma
                 libfunc tote error. Alliws put.
                 Gia ta funcs apagoreuetai to ++ -- klp.
+                Oles oi sunarthseis apo scope mexri 0 einai orates.
                 
 
 

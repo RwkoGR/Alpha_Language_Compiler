@@ -10,6 +10,7 @@ void hide_scope(struct List** scope_arr, unsigned int scope){
     }
 }
 
+
 int add_node_scope_arr(struct List** scope_arr, SymbolTableEntry * symTableObj){
     assert(symTableObj != NULL);
     assert(symTableObj->value.varVal != NULL);

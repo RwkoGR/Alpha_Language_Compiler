@@ -59,8 +59,9 @@ unsigned int SymTable_getLength(SymTable_T oSymTable);
 SymbolTableEntry* SymTable_put(SymTable_T oSymTable, const char *pcKey, char *type);
 void SymTable_print(SymTable_T oSymTable);
 int SymTable_remove(SymTable_T oSymTable, const char *pcKey);
-int SymTable_contains(SymTable_T oSymTable, const char *pcKey);
+int SymTable_contains(SymTable_T oSymTable, const char *pcKey, char *type);
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey);
+int find_var_bypass_func(const char *pcKey);
 
 #endif
 
