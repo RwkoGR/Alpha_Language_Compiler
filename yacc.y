@@ -1,13 +1,11 @@
 %{
         #include <stdio.h>
         #include "symtable.h"
-        #include "scope_list.h"
 
         int alpha_yyerror(void* symTable_head,char *yaccProvideMessage);
         int alpha_yylex();
         int alpha_yyparse(void *yylval);
         struct SymTable *symTable_head = NULL;
-        struct List **scope_arr;
         int cur_scope;
         int num_func;
 
@@ -21,8 +19,9 @@
     char *stringValue;
     int intValue;
     float floatValue;
-    struct SymbolTableEntry *symTableEntry;
+    struct SymTable *symTable;
 }
+
 %name-prefix="alpha_yy"
 %parse-param {void *symTable_head}
 
@@ -39,8 +38,8 @@
 %token <stringValue> NOT PLUS_PLUS MINUS_MINUS U_MINUS
 %token <stringValue> '(' ')' '[' ']'
 %token <stringValue> '.' DOT_DOT
-%type <symTableEntry>  STMT STMTlist EXPR assignEXPR lvalue member const primary objectdef term indexed indexedelem call elist RETURNSTMT FUNCDEF
-%type <symTableEntry> FUNC_INIT FUNC_ARG_LIST BEGIN_FUNC END_FUNC IDlist IDtail
+%type <stringValue> IDlist IDtail
+%type <symTable> STMT STMTlist EXPR assignEXPR lvalue member const primary objectdef term indexed indexedelem call elist RETURNSTMT FUNCDEF
 
 %right '='
 %left OR
@@ -113,11 +112,11 @@ primary: lvalue {printf("(Y) lvalue\n");}
 
 lvalue: ID {
                 printf("(Y) ID\n");
-                $$ = SymTable_put(symTable_head, $1 ,"var");
+                SymTable_put(symTable_head, $1, &$$ ,"var", NULL);
         }
       | local ID {
                 printf("(Y) local ID\n");
-                $$ = SymTable_put(symTable_head, $2 ,"var");
+                SymTable_put(symTable_head, $2, &$$ ,"var", NULL);
         }
       | COLON_COLON ID {printf("(Y) COLON_COLON ID\n");}
       | member {printf("(Y) member\n");}
@@ -161,22 +160,12 @@ indexed: indexedelem {printf("(Y) indexedelem\n");}
 
 indexedelem: '{' EXPR ':' EXPR '}' {printf("(Y) { EXPR : EXPR }\n");}
 
+BLOCK:  '{' STMT '}' {printf("(Y) { STMT }\n");}
+        | '{' '}' {printf("(Y) {}\n");}
+        ;
 
-BLOCK:  '{'{cur_scope++;} STMTlist {cur_scope--;}'}' {printf("(Y) { STMTlist }\n");}
-
-        
-BEGIN_FUNC: {
-
-
-}
-
-END_FUNC:{
-
-}
-
-FUNC_INIT: FUNCTION {
-                printf("(Y) FUNCTION \n");
-
+FUNCDEF: FUNCTION '(' IDlist ')' BLOCK {
+                printf("(Y) FUNCTION ( IDlist ) BLOCK\n");
                 char *str;
                 char str_num[50];
                 sprintf(str_num, "%d", num_func);
@@ -186,27 +175,47 @@ FUNC_INIT: FUNCTION {
                 strcat(str, str_num);
                 str[strlen(str)] = '\0';
                 num_func++;
-                $$ = SymTable_put(symTable_head, str,"func");
+                SymTable_put(symTable_head, str, &$$ ,"func", $3);
         }
-        | FUNCTION ID {
-                printf("(Y) FUNCTION ID ");
-                $$ = SymTable_put(symTable_head, $2 ,"func");
+        | FUNCTION '(' ID ')' BLOCK {
+                printf("(Y) FUNCTION ( ID ) BLOCK\n");
+                char *str;
+                char str_num[50];
+                sprintf(str_num, "%d", num_func);
+                str = malloc(strlen("$") + strlen(str_num) + 1);
+                if(!str) return -1;
+                strcat(str, "$");
+                strcat(str, str_num);
+                str[strlen(str)] = '\0';
+                num_func++;
+                SymTable_put(symTable_head, str, &$$ ,"func", $3);
         }
-
-FUNC_ARG_LIST: '(' IDlist ')' {
-                printf("(Y) ( IDlist )");
+        | FUNCTION '(' ')' BLOCK {
+                printf("(Y) FUNCTION ( ) BLOCK\n");
+                char *str;
+                char str_num[50];
+                sprintf(str_num, "%d", num_func);
+                str = malloc(strlen("$") + strlen(str_num) + 1);
+                if(!str) return -1;
+                strcat(str, "$");
+                strcat(str, str_num);
+                str[strlen(str)] = '\0';
+                num_func++;
+                SymTable_put(symTable_head, str, &$$ ,"func", NULL);
         }
-        | '(' ID ')'{
-                cur_scope++;
-                $$ = SymTable_put(symTable_head, $2 ,"func var");
-                printf("(Y) ( ID )\n");
-                cur_scope--;
+        | FUNCTION ID '(' IDlist ')' BLOCK {
+                printf("(Y) FUNCTION ID ( IDlist ) BLOCK\n");
+                SymTable_put(symTable_head, $2, &$$ ,"func", $4);
         }
-                
-        | '(' ')' {printf("(Y) ( )");}
-
-FUNCDEF: FUNC_INIT FUNC_ARG_LIST BEGIN_FUNC BLOCK END_FUNC {printf("(Y) COMPLETE FUNC\n");}
-
+        | FUNCTION ID '(' ID ')' BLOCK {
+                printf("(Y) FUNCTION ID ( ID ) BLOCK\n");
+                SymTable_put(symTable_head, $2, &$$ ,"func", $4);
+        }
+        | FUNCTION ID '(' ')' BLOCK {
+                printf("(Y) FUNCTION ID ( ) BLOCK\n");
+                SymTable_put(symTable_head, $2, &$$ ,"func", NULL);
+        }
+        ;
 
 const: NUMBER_INT  {printf("(Y) NUMBER_INT\n");}
         | NUMBER_FLOAT  {printf("(Y) NUMBER_FLOAT\n");}
@@ -215,25 +224,11 @@ const: NUMBER_INT  {printf("(Y) NUMBER_INT\n");}
         | TRUE  {printf("(Y) TRUE\n");}
         | FALSE {printf("(Y) FALSE\n");}
 
-IDlist: ID IDtail{
-                cur_scope++;
-                $$ = SymTable_put(symTable_head, $1 ,"func var");
-                printf("(Y) ID\n");
-                cur_scope--;
-        }
+IDlist: ID IDtail{printf("(Y) ID\n");}
+        ;
 
-IDtail:   ',' ID IDtail {
-                cur_scope++;
-                $$ = SymTable_put(symTable_head, $2 ,"func var");
-                printf("(Y) , ID IDtail\n");
-                cur_scope--;
-        }
-        | ',' ID {
-                cur_scope++;
-                $$ = SymTable_put(symTable_head, $2 ,"func var");
-                printf("(Y) , ID IDtail\n");
-                cur_scope--;
-        }
+IDtail:   ',' ID IDtail {printf("(Y) , ID IDtail\n");}
+        | ',' ID {printf("(Y) , ID IDtail\n");}
 
 IFSTMT: IF '(' EXPR ')' STMT ELSE STMT  {printf("(Y) IF ( EXPR ) STMT ELSE STMT\n");}
         | IF '(' EXPR ')' STMT {printf("(Y) IF ( EXPR ) STMT\n");}
@@ -267,12 +262,10 @@ int main(int argc, char **argv) {
         if((yyout = fopen(argv[2], "w+"))){}
         else yyout = stderr;
     }
-    scope_arr = create_scope_arr();
     num_func = 0;
     cur_scope = 0;
     symTable_head = SymTable_new();
     alpha_yyparse(symTable_head);
     SymTable_print(symTable_head);
-    print_nodes_scope_arr(scope_arr);
     return 0;
 }

@@ -1,5 +1,5 @@
-#ifndef SYMTABLE_H
-#define SYMTABLE_H
+#ifndef SYMTABLE
+#define SYMTABLE
 
 #include <assert.h>
 #include <string.h>
@@ -20,7 +20,7 @@ typedef struct Variable {
 typedef struct Function { 
     const char *name; 
     //List of arguments 
-    char *arg_list;
+    char **arg_list;
     unsigned int scope; 
     unsigned int line; 
 } Function; 
@@ -56,7 +56,7 @@ typedef struct SymTable *SymTable_T;
 SymTable_T SymTable_new(void);
 void SymTable_free(SymTable_T oSymTable);
 unsigned int SymTable_getLength(SymTable_T oSymTable);
-SymbolTableEntry* SymTable_put(SymTable_T oSymTable, const char *pcKey, char *type);
+int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue, char *type, char *args);
 void SymTable_print(SymTable_T oSymTable);
 int SymTable_remove(SymTable_T oSymTable, const char *pcKey);
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey);

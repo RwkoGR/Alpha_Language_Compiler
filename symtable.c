@@ -1,10 +1,8 @@
 #include "symtable.h"
-#include "scope_list.h"
 
 extern int cur_scope;
 extern int yylineno;
 extern int num_func;
-extern struct List **scope_arr;
 int functStartLine;
 char **lib_funcs; //12
 
@@ -53,19 +51,18 @@ SymTable_T SymTable_new(void){
     strcpy(lib_funcs[10],"cos");
     lib_funcs[11] = malloc(strlen("sin")+1);
     strcpy(lib_funcs[11],"sin");
-    SymTable_put(hash_t,lib_funcs[0],"func");
-    SymTable_put(hash_t,lib_funcs[1],"func");
-    SymTable_put(hash_t,lib_funcs[2],"func");
-    SymTable_put(hash_t,lib_funcs[3],"func");
-    SymTable_put(hash_t,lib_funcs[4],"func");
-    SymTable_put(hash_t,lib_funcs[5],"func");
-    SymTable_put(hash_t,lib_funcs[6],"func");
-    SymTable_put(hash_t,lib_funcs[7],"func");
-    SymTable_put(hash_t,lib_funcs[8],"func");
-    SymTable_put(hash_t,lib_funcs[9],"func");
-    SymTable_put(hash_t,lib_funcs[10],"func");
-    SymTable_put(hash_t,lib_funcs[11],"func");
-
+    SymTable_put(hash_t,lib_funcs[0],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[1],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[2],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[3],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[4],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[5],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[6],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[7],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[8],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[9],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[10],NULL,"func", NULL);
+    SymTable_put(hash_t,lib_funcs[11],NULL,"func", NULL);
     return hash_t;
 }
 
@@ -100,7 +97,7 @@ unsigned int SymTable_getLength(SymTable_T oSymTable){
 }
 
 
-SymbolTableEntry* SymTable_put(SymTable_T oSymTable, const char *pcKey, char *type){
+int SymTable_put(SymTable_T oSymTable, const char *pcKey, const void *pvValue, char *type, char* args){
     SymTable_T hash_t = oSymTable;
     struct List *bucket_head;
     struct List *new_node = malloc(sizeof(struct List));
@@ -117,7 +114,8 @@ SymbolTableEntry* SymTable_put(SymTable_T oSymTable, const char *pcKey, char *ty
 
     /*Initialize new node*/
     new_node->pcKey = strcpy(malloc(strlen(pcKey) + 1),pcKey);
-    SymbolTableEntry* symTableObj = malloc(sizeof(SymbolTableEntry));
+
+    SymbolTableEntry *symTableObj = (SymbolTableEntry *) malloc(sizeof(SymbolTableEntry));
     symTableObj->isActive = 1;
     if(strcmp(type,"var") == 0){
         Variable *obj = (Variable *) malloc(sizeof(Variable));
@@ -153,18 +151,12 @@ SymbolTableEntry* SymTable_put(SymTable_T oSymTable, const char *pcKey, char *ty
         symTableObj->value.funcVal = obj1;
         assert(symTableObj->value.funcVal != NULL);
     }
-    else if(!strcmp(type, "func var")){
-        Variable *obj = (Variable *) malloc(sizeof(Variable));
-        obj->name = pcKey;
-        obj->scope = cur_scope;
-        obj->line = yylineno;
-        symTableObj->value.varVal = obj;
-        symTableObj->type = FORMAL;
-        assert(symTableObj->value.varVal != NULL);
-    }
-    if(!add_node_scope_arr(scope_arr, symTableObj)) printf("Error adding node to scope array\n");
+    /*else if(args != NULL){
+            Variable *obj = (Variable *) malloc(sizeof(Variable));
+     }*/
     new_node->pvValue = (void *)symTableObj;
     
+
     /*Check if bucket(list) has been initialized and if not, initilize it with new node as head*/
     if(!bucket_head){
         new_node->next = NULL;
@@ -177,7 +169,7 @@ SymbolTableEntry* SymTable_put(SymTable_T oSymTable, const char *pcKey, char *ty
     hash_t->count++;
     bucket_head = new_node;
     hash_t->nodes[node_hash] = bucket_head;
-    return symTableObj;    
+    return 1;    
 }
 
 void SymTable_print(SymTable_T oSymTable){
@@ -198,7 +190,7 @@ void SymTable_print(SymTable_T oSymTable){
             printf("Key: %s\n",traversal_ptr->pcKey);
             printf("\tisActive:%d\n\tType:%d\n",((SymbolTableEntry *)traversal_ptr->pvValue)->isActive,
                     ((SymbolTableEntry *)traversal_ptr->pvValue)->type);
-            if(((SymbolTableEntry *)traversal_ptr->pvValue)->type == 0 || ((SymbolTableEntry *)traversal_ptr->pvValue)->type == 1 || ((SymbolTableEntry *)traversal_ptr->pvValue)->type == 2){
+            if(((SymbolTableEntry *)traversal_ptr->pvValue)->type == 0 || ((SymbolTableEntry *)traversal_ptr->pvValue)->type == 1){
                 printf("\tScope:%d\n\tLine:%d\n",(
                         (SymbolTableEntry *)traversal_ptr->pvValue)->value.varVal->scope ,
                         ((SymbolTableEntry *)traversal_ptr->pvValue)->value.varVal->line);
