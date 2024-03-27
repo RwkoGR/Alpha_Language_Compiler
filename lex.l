@@ -202,7 +202,7 @@ undefined .
 {dot_dot} {fprintf(yyout,"found DOT_DOT.\n");add_node(&head_list, yylineno, tokens++, yytext, "PUNCTUATION", "DOUBLE_DOT", "<-enumerated"); return DOT_DOT;}
 
 {id} {alpha_yylval.stringValue = strdup(yytext); ;fprintf(yyout,"found id:%s\n",yytext); add_node(&head_list, yylineno, tokens++, yytext, "ID", "\"this_is_an_id\"", "<-char*"); return ID;}
-{comment} {fprintf(yyout,"found COMMENT.\n");add_node(&head_list, yylineno, tokens++, "", "COMMENT", "LINE_COMMENT", "<-enumerated"); return COMMENT;}
+{comment} {fprintf(yyout,"found COMMENT.\n");add_node(&head_list, yylineno, tokens++, "", "COMMENT", "LINE_COMMENT", "<-enumerated"); }
 {block_comment} {
     int c;
     int initial_line = 0;
@@ -241,7 +241,8 @@ undefined .
         exit(0);
     }
     fprintf(yyout,"found BLOCK_COMMENT\n");
-    return BLOCK_COMMENT;
+    // return BLOCK_COMMENT;
+
 }
 
 {undefined} {fprintf(yyout,"ERROR! Undefined character: %s in line %d.\n", yytext ,yylineno); return NIL;}
