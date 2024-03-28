@@ -295,8 +295,42 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey, char *type){
             }
         }
     }
+    
+   
+
     else if(!strcmp(type, "func")){
-        ptr = scope_arr[0];
+        ptr = scope_arr[cur_scope];
+        for(int i = cur_scope; i >= 0; i--){
+            ptr = scope_arr[i];
+            while(ptr != NULL){
+                if(i == cur_scope || i == 0){
+                    if(!strcmp(pcKey, ptr->pcKey)){
+                        if(((SymbolTableEntry *)ptr->pvValue)->isActive == 1){
+                            found = 1;
+                            printf("\n\t(!) Error: This function already exists as a function or variable. [%s]\n\n", pcKey);
+                        }
+                    }
+                }else{
+                    if(!strcmp(pcKey, ptr->pcKey)){
+                        if(((SymbolTableEntry *)ptr->pvValue)->isActive == 1){
+                            found = 0;
+                            printf("\n\t(!) Error: This function already exists as a function or variable. [%s]\n\n", pcKey);
+                        }
+                    }
+                }
+                ptr = ptr->next;
+            }
+        }
+        while(ptr != NULL){
+            if(!strcmp(pcKey, ptr->pcKey)){
+                if(((SymbolTableEntry *)ptr->pvValue)->isActive == 1){
+                    found = 1;
+                    printf("\n\t(!) Error: This function already exists as a function or variable. [%s]\n\n", pcKey);
+                }
+            }
+            ptr = ptr->next;
+        }
+        ptr = scope_arr[cur_scope];
         while(ptr != NULL){
             if(!strcmp(pcKey, ptr->pcKey)){
                 if(((SymbolTableEntry *)ptr->pvValue)->isActive == 1){

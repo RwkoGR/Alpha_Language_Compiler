@@ -174,7 +174,7 @@ BLOCK:  '{'{cur_scope++;} STMTlist { hide_scope(scope_arr, cur_scope); cur_scope
 
         
 BEGIN_FUNC: {
-
+        
 
 }
 
@@ -308,7 +308,7 @@ int main(int argc, char **argv) {
         Functions:
                 Gia kapoia sunarthsh an exei var h func idio h exei onoma libfunc tote error. Alliws put.               (Y)
                 Gia kapoio Formal var an exei idio onoma me kapoio var sto idio scope h exei onoma
-                libfunc tote error. Alliws put.
+                libfunc tote error. Alliws put.                                                                         (Y)        
                 Gia ta funcs apagoreuetai to ++ -- klp.
                 Oles oi sunarthseis apo scope mexri 0 einai orates.
                 
